@@ -444,7 +444,7 @@ const AboutMe = ({ scrollToSection, projectsRef, contactRef }) => {
                 color: "#4a5568"
               }}
             >
-              I'm a <strong style={{ color: "#BE564A" }}>Full-Stack Software Developer</strong> specializing
+              I'm a <strong style={{ color: "#BE564A" }}>Software Enginner</strong> specializing
               in modern web technologies such as JavaScript, React, Node.js,
               Express, and MongoDB. I love building scalable, responsive, and
               user-friendly applications. Whether it's creating sleek user
