@@ -103,7 +103,7 @@ const Project = () => {
               title="Chizzy Kids School"
               description="A modern School Management System built using React, Node.js, and MongoDB."
               image="https://res.cloudinary.com/djbtdlzrj/image/upload/v1738102417/Screenshot_2025-01-28_231209_wmkvwt.png"
-              link="https://chizzy-kids-school.onrender.com/"
+              link="http://chizzykidsgroupofschools.com.ng"
               technologies={["React", "Node.js", "MongoDB", "Express"]}
             />
           </Col>
