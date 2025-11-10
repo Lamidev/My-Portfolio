@@ -1,21 +1,4 @@
-// import { Route, Routes } from "react-router-dom";
-// import Portfolio from "./pages/portfolio";
-// import Footer from "./components/footer";
 
-// function App() {
-//   return  (
-//   <>
-//   <Routes>
-//     <Route path="/" element={<Portfolio/>}/>
-//   </Routes>
-
-//   <Footer/>
-
-//   </>
-//   );
-// }
-
-// export default App;
 
 import { Route, Routes } from "react-router-dom";
 import Portfolio from "./pages/portfolio";
@@ -35,3 +18,4 @@ function App() {
 }
 
 export default App;
+
