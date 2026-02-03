@@ -1,0 +1,76 @@
+@import "tailwindcss";
+
+@theme {
+  --color-primary: #6366f1;
+  --color-secondary: #a855f7;
+  --color-bg-dark: #030712;
+  --color-bg-card: #111827;
+  --color-text-primary: #f9fafb;
+  --color-text-secondary: #9ca3af;
+  --color-text-muted: #6b7280;
+  
+  --font-inter: "Inter", sans-serif;
+  --font-outfit: "Outfit", sans-serif;
+
+  --breakpoint-xs: 480px;
+}
+
+@layer base {
+  * {
+    @apply border-white/5;
+  }
+  
+  body {
+    @apply bg-bg-dark text-text-primary font-inter leading-relaxed overflow-x-hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-outfit font-bold tracking-tight;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-clip-text text-transparent bg-linear-to-r from-indigo-500 to-purple-500;
+  }
+
+  .glass-card {
+    @apply bg-white/5 backdrop-blur-3xl border border-white/10 rounded-[2rem] shadow-2xl;
+  }
+
+  .btn-premium {
+    @apply px-8 py-4 bg-indigo-600 hover:bg-indigo-700 text-white rounded-full font-semibold flex items-center gap-2 transition-all shadow-lg shadow-indigo-500/20 active:scale-95 cursor-pointer;
+  }
+
+  .btn-outline-premium {
+    @apply px-8 py-4 bg-white/5 hover:bg-white/10 text-white border border-white/10 rounded-full font-semibold flex items-center gap-2 transition-all active:scale-95 cursor-pointer;
+  }
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-bg-dark;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-800 rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-gray-700;
+}
+
+.decorative-bg {
+  @apply relative;
+}
+
+.decorative-bg::before {
+  content: '';
+  @apply absolute inset-0 pointer-events-none z-0;
+  background-image: radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.05) 1px, transparent 0);
+  background-size: 40px 40px;
+}
