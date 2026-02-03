@@ -119,10 +119,15 @@ router.post('/send-email', async (req, res) => {
       message: 'Email sent successfully' 
     });
   } catch (error) {
-    console.error('Email sending error:', error);
+    console.error('Email sending error details:', {
+      message: error.message,
+      code: error.code,
+      command: error.command
+    });
     res.status(500).json({ 
       success: false, 
-      message: 'Failed to send email. Please try again later.' 
+      message: 'Failed to send email.',
+      error: error.message // Pass the error message back to frontend for debugging
     });
   }
 });

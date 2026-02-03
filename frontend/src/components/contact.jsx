@@ -33,10 +33,13 @@ const Contact = () => {
           setSuccess("Message sent successfully! I'll be in touch soon.");
           setFormData({ name: "", email: "", subject: "", message: "" });
         } else {
-          setSuccess("Oops! Something went wrong. Please try again.");
+          setSuccess(data.error || "Oops! Something went wrong. Please try again.");
         }
       })
-      .catch(() => setSuccess("Error connecting to server. Please try again."))
+      .catch((err) => {
+        console.error("Contact Form Error:", err);
+        setSuccess("Connection error. Please ensure the backend is awake and try again.");
+      })
       .finally(() => setLoading(false));
   };
 
