@@ -20,11 +20,26 @@ router.post('/send-email', async (req, res) => {
 
   try {
     const transporter = nodemailer.createTransport({
-      service: 'gmail',
+      host: 'smtp.gmail.com',
+      port: 465,
+      secure: true, // Use SSL
       auth: {
         user: process.env.EMAIL_USER,
         pass: process.env.EMAIL_PASS,
       },
+    });
+
+    // Verify connection configuration
+    await new Promise((resolve, reject) => {
+      transporter.verify(function (error, success) {
+        if (error) {
+          console.log("Transporter verification failed:", error);
+          reject(error);
+        } else {
+          console.log("Server is ready to take our messages");
+          resolve(success);
+        }
+      });
     });
 
     const ownerEmailHTML = `
@@ -103,21 +118,25 @@ router.post('/send-email', async (req, res) => {
       </html>
     `;
 
-    // 1. Send Notification to Owner
-    await transporter.sendMail({
-      from: `"Lamidev Portfolio" <${process.env.EMAIL_USER}>`,
-      to: process.env.CONTACT_EMAIL || 'Akinyemioluwaseunjunior@gmail.com',
-      subject: `🚀 New Project Inquiry: ${subject}`,
-      html: ownerEmailHTML,
-    });
+    console.log("Starting email send process...");
 
-    // 2. Send Acknowledgement to User
-    await transporter.sendMail({
-      from: `"Akinyemi Oluwatosin" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: `Got your message! - Akinyemi Oluwatosin`,
-      html: userEmailHTML,
-    });
+    // Send emails in parallel to reduce timeout risk
+    await Promise.all([
+      transporter.sendMail({
+        from: `"Lamidev Portfolio" <${process.env.EMAIL_USER}>`,
+        to: process.env.CONTACT_EMAIL || 'Akinyemioluwaseunjunior@gmail.com',
+        subject: `🚀 New Project Inquiry: ${subject}`,
+        html: ownerEmailHTML,
+      }),
+      transporter.sendMail({
+        from: `"Akinyemi Oluwatosin" <${process.env.EMAIL_USER}>`,
+        to: email,
+        subject: `Got your message! - Akinyemi Oluwatosin`,
+        html: userEmailHTML,
+      })
+    ]);
+
+    console.log("Both emails sent successfully");
 
     res.json({ 
       success: true, 
@@ -127,7 +146,8 @@ router.post('/send-email', async (req, res) => {
     console.error('Email sending error details:', {
       message: error.message,
       code: error.code,
-      command: error.command
+      command: error.command,
+      stack: error.stack
     });
     res.status(500).json({ 
       success: false, 
