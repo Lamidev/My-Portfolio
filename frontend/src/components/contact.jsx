@@ -38,7 +38,7 @@ const Contact = () => {
       })
       .catch((err) => {
         console.error("Contact Form Error:", err);
-        setSuccess("Connection error. Please ensure the backend is awake and try again.");
+        setSuccess("Message failed to send. Please check your connection or email me directly.");
       })
       .finally(() => setLoading(false));
   };
