@@ -4,6 +4,11 @@ const router = express.Router();
 
 // POST route to handle contact form submissions
 router.post('/send-email', async (req, res) => {
+  console.log("Contact form execution started");
+  console.log("Request body:", req.body);
+  console.log("Email User Configured:", !!process.env.EMAIL_USER);
+  console.log("Email Pass Configured:", !!process.env.EMAIL_PASS);
+
   const { name, email, subject, message } = req.body;
 
   if (!name || !email || !subject || !message) {

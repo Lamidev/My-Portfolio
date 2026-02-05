@@ -22,7 +22,10 @@ const Contact = () => {
     setLoading(true);
     setSuccess(null);
 
-    fetch(`${import.meta.env.VITE_BACKEND_URL}/api/send-email`, {
+    const apiUrl = `${import.meta.env.VITE_BACKEND_URL}/api/send-email`;
+    console.log("Sending email to:", apiUrl);
+
+    fetch(apiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(formData),

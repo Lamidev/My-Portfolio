@@ -6,10 +6,31 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 
 // Middleware
-app.use(cors({
-  origin: [process.env.VITE_FRONTEND_URL, 'http://localhost:5173'],
-  credentials: true
-}));
+// Middleware
+const allowedOrigins = [
+  process.env.VITE_FRONTEND_URL?.replace(/\/$/, ""), // Remove trailing slash if present
+  "https://my-portfolio-xfch.onrender.com", // Production Frontend
+  "http://localhost:5173",
+  "http://localhost:7000",
+];
+
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (like mobile apps or curl requests)
+      if (!origin) return callback(null, true);
+
+      if (allowedOrigins.includes(origin) || allowedOrigins.includes(origin.replace(/\/$/, ""))) {
+        callback(null, true);
+      } else {
+        console.log("Blocked by CORS. Origin:", origin);
+        console.log("Allowed Origins:", allowedOrigins);
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 
 // Root route for health check
